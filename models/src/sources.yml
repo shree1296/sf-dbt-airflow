@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: classicmodels
+    schema: public
+    database: classicmodels
+    tables:
+      - name: productlines
+        description: contains product category information
+        loaded_at_field: loaded_date
+      - name: products
+        description: contains details of individual products
+        loaded_at_field: loaded_date
+      - name: orderdetails
+        description: contains line-level details of orders
+        loaded_at_field: loaded_date
+      - name: orders
+        description: contains order header information
+        loaded_at_field: loaded_date
+      - name: customers
+        description: contains customers information
+        loaded_at_field: loaded_date
+      - name: payments
+        description: contains payment records of customers
+        loaded_at_field: loaded_date
+      - name: employees
+        description: contains employees details and reporting structure
+        loaded_at_field: loaded_date
+      - name: offices
+        description: contains office locations and contact info
+        loaded_at_field: loaded_date 
