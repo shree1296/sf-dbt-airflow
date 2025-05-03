@@ -4,28 +4,151 @@ sources:
   - name: classicmodels
     schema: public
     database: classicmodels
+    description: Source data from the Classic Models database
     tables:
-      - name: productlines
-        description: contains product category information
-        loaded_at_field: loaded_date
-      - name: products
-        description: contains details of individual products
-        loaded_at_field: loaded_date
-      - name: orderdetails
-        description: contains line-level details of orders
-        loaded_at_field: loaded_date
-      - name: orders
-        description: contains order header information
-        loaded_at_field: loaded_date
       - name: customers
-        description: contains customers information
+        description: Contains customers information
         loaded_at_field: loaded_date
-      - name: payments
-        description: contains payment records of customers
-        loaded_at_field: loaded_date
+        columns:
+          - name: customernumber
+            description: Unique identifier for each customer
+            tests:
+              - not_null
+              - unique
+          - name: customername
+            description: Customer's name
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
       - name: employees
-        description: contains employees details and reporting structure
+        description: Contains employee details and reporting structure
         loaded_at_field: loaded_date
+        columns:
+          - name: employeenumber
+            description: Unique employee ID
+            tests:
+              - not_null
+              - unique
+          - name: email
+            description: Employee email address
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
       - name: offices
-        description: contains office locations and contact info
-        loaded_at_field: loaded_date 
+        description: Contains office locations and contact info
+        loaded_at_field: loaded_date
+        columns:
+          - name: officecode
+            description: Unique office code
+            tests:
+              - not_null
+              - unique
+          - name: city
+            description: City where office is located
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
+      - name: orders
+        description: Contains order header information
+        loaded_at_field: loaded_date
+        columns:
+          - name: ordernumber
+            description: Unique order ID
+            tests:
+              - not_null
+              - unique
+          - name: customernumber
+            description: Customer placing the order
+            tests:
+              - not_null
+          - name: orderdate
+            description: Date of the order
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
+      - name: orderdetails
+        description: Contains line-level details of orders
+        loaded_at_field: loaded_date
+        columns:
+          - name: ordernumber
+            description: Associated order number
+            tests:
+              - not_null
+          - name: productcode
+            description: Associated product code
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
+      - name: payments
+        description: Contains payment records of customers
+        loaded_at_field: loaded_date
+        columns:
+          - name: customernumber
+            description: Customer making the payment
+            tests:
+              - not_null
+          - name: checknumber
+            description: Unique check reference number
+            tests:
+              - not_null
+              - unique
+          - name: amount
+            description: Payment amount
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
+      - name: productlines
+        description: Contains product category information
+        loaded_at_field: loaded_date
+        columns:
+          - name: productline
+            description: Product category name
+            tests:
+              - not_null
+              - unique
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null
+
+      - name: products
+        description: Contains details of individual products
+        loaded_at_field: loaded_date
+        columns:
+          - name: productcode
+            description: Unique product identifier
+            tests:
+              - not_null
+              - unique
+          - name: productname
+            description: Product's name
+            tests:
+              - not_null
+          - name: loaded_date
+            description: Record load timestamp
+            tests:
+              - not_null

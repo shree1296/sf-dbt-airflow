@@ -1,0 +1,95 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staging model for customers"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_name
+        tests:
+          - not_null
+
+  - name: stg_employees
+    description: "Staging model for employees"
+    columns:
+      - name: employee_number
+        tests:
+          - not_null
+          - unique
+      - name: email
+        tests:
+          - not_null
+
+  - name: stg_offices
+    description: "Staging model for offices"
+    columns:
+      - name: office_code
+        tests:
+          - not_null
+          - unique
+      - name: city
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Staging model for orders"
+    columns:
+      - name: order_number
+        tests:
+          - not_null
+          - unique
+      - name: customer_number
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+
+  - name: stg_order_details
+    description: "Staging model for order details"
+    columns:
+      - name: order_number
+        tests:
+          - not_null
+      - name: product_code
+        tests:
+          - not_null
+      - name: order_line_number
+        tests:
+          - not_null
+
+  - name: stg_products
+    description: "Staging model for products"
+    columns:
+      - name: productcode
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        tests:
+          - not_null
+
+  - name: stg_productlines
+    description: "Staging model for product lines"
+    columns:
+      - name: productline
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_payments
+    description: "Staging model for payments"
+    columns:
+      - name: check_number
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
